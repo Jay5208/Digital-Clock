@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Lobster&family=Rowdies:wght@300;400;700&display=swap");
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Lobster', sans-serif;
+        }
+
+        html,
+        body {
+            display: grid;
+            height: 100%;
+            place-items: center;
+            background-color: black;
+        }
+
+        .container {
+            height: 100px;
+            width: 360px;
+            background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+            border-radius: 10px;
+            animation: animate 1.5s linear infinite;
+        }
+
+        @keyframes animate {
+            100% {
+                filter: hue-rotate(360deg)
+            }
+        }
+
+        .display,
+        span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            cursor: default;
+            border-radius: 6px;
+            transform: translate(-50%, -50%);
+
+        }
+
+        span {
+            width: 100%;
+            height: 100%;
+        }
+
+        span:first-child {
+            filter: blur(10px);
+        }
+
+        span:last-child {
+            filter: blur(20px);
+        }
+
+        .display {
+            background-color: #1b1b1b;
+            z-index: 999;
+            height: 85px;
+            width: 345px;
+            text-align: center;
+        }
+
+        #time {
+            line-height: 85px;
+            font-size: 50px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #14ffe9, #ffeb3b, #ff00e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="display">
+            <div id="time">12:00:00 PM</div>
+        </div>
+        <span></span>
+        <span></span>
+    </div>
+    <script>
+        const ask = prompt('Which time interval do you want (i) 24 Hours (type 24)  or  (ii) 12 Hours (type 12)');
+        if (ask == 24) {
+
+            setInterval(() => {
+                const time = document.querySelector('#time');
+                let date = new Date();
+                let hrs = date.getHours();
+                let min = date.getMinutes();
+                let sec = date.getSeconds();
+                let day_night = 'AM';
+
+                if (hrs > 12) {
+                    day_night = 'PM'
+
+                }
+                if (min < 10) {
+                    min = '0' + min;
+                }
+                if (hrs < 10) {
+                    hrs = '0' + hrs;
+                }
+                if (sec < 10) {
+                    sec = '0' + sec;
+                }
+                time.textContent = hrs + ':' + min + ':' + sec + ' ' + day_night;
+            })
+            
+        }
+        else{
+
+            setInterval(() => {
+                const time = document.querySelector('#time');
+                let date = new Date();
+                let hrs = date.getHours();
+                let min = date.getMinutes();
+                let sec = date.getSeconds();
+                let day_night = 'AM';
+    
+                if (hrs > 12) {
+                    day_night = 'PM'
+                    hrs = hrs - 12;
+                }
+                if (min < 10) {
+                    min = '0' + min;
+                }
+                if (hrs < 10) {
+                    hrs = '0' + hrs;
+                }
+                if (sec < 10) {
+                    sec = '0' + sec;
+                }
+                time.textContent = hrs + ':' + min + ':' + sec + ' ' + day_night;
+            })
+        }
+
+
+    </script>
+</body>
+
+</html>
